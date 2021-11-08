@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet, SafeAreaView, View, TouchableHighlight } from "react-native";
+import { useNavigation } from "@react-navigation/core";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -7,6 +8,7 @@ import { Colors } from '../utils/Colors'
 import { ListItem } from './ListItem'
 import { ListItemSeparator } from "./ListItemSeparator";
 import { ListItemDeleteSwipe } from './ListItemDeleteSwipe';
+
 
 const EmpData = [
     {
@@ -36,6 +38,7 @@ export function EmployeeList() {
 
     const [ emplist, setemplist ] = useState(EmpData);
     const [ refreshing, setRefreshing ] = useState(false);
+    const navigation = useNavigation();
 
     // Delete employee from EmpData
     const handleDelete = (emp) => {
@@ -54,7 +57,7 @@ export function EmployeeList() {
                         email={ item.email }
                         phone={ item.phone }
                         img={ item.image }
-                        onPress={ () => alert(item) }
+                        onPress={ () => navigation.navigate('EmployeeDetails') }
 
                     />) }
 
@@ -70,17 +73,18 @@ export function EmployeeList() {
                     backgroundColor: Colors.Main_COLOR,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    left: 270,
+                    alignSelf: 'flex-end',
+                    marginRight: 25,
                     bottom: 20,
                 } }
-                onPress={ () => { alert('Pressed') } }
+                onPress={ () => navigation.navigate('AddEmployee') }
             >
 
                 <MaterialCommunityIcons name='plus-circle' size={ 40 } ></MaterialCommunityIcons>
 
             </TouchableHighlight>
 
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
 

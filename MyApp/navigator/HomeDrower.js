@@ -1,21 +1,34 @@
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
 
-import { logoutStack } from './logoutStack'
-import { HomeStack } from './HomeStack'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/core'
+
+import { EmployeeList } from '../Components/EmployeeListForm'
 import { Logout } from '../Components/Logout'
+
 import { Colors } from '../utils/Colors';
 
 const Drawer = createDrawerNavigator();
 
 export function HomeDrower() {
+    const navigation = useNavigation();
+
     return (
-        <NavigationContainer >
-            <Drawer.Navigator screenOptions={ { headerTintColor: Colors.white } }>
-                <Drawer.Screen name="HomeStack" component={ HomeStack } options={ { title: '', headerStyle: { backgroundColor: Colors.Main_COLOR } } } />
-                <Drawer.Screen name="Logout" component={ Logout } options={ { headerShown: false } } />
-            </Drawer.Navigator >
-        </NavigationContainer>
+        <Drawer.Navigator
+            initialRouteName={ 'Home' }
+            screenOptions={ { headerTintColor: Colors.white } }>
+
+            <Drawer.Screen name="Home"
+
+                component={ EmployeeList }
+                options={ {
+                    title: '',
+                    drawerLabel: 'Home',
+                    headerStyle: { backgroundColor: Colors.Main_COLOR }
+                } }
+            />
+
+            <Drawer.Screen name="Logout" component={ Logout } options={ { headerShown: false } } />
+        </Drawer.Navigator >
     );
 }

@@ -4,6 +4,9 @@ import { Text, TextInput, StyleSheet, View, Image } from 'react-native';
 import { InputTextStyle } from '../styles/InputTextStyle'
 
 export function Input(props) {
+
+  //const [ Value, setValue ] = React.useState('');
+
   const {
     style,
     imagesource,
@@ -16,6 +19,7 @@ export function Input(props) {
     <View>
       <View style={ styles.Container }>
         <TextInput
+          onChangeText={ () => { setValue(Value) } }
           placeholder={ placeholder }
           style={ [ InputTextStyle.inputtext, errors ? { borderColor: 'red', marginBottom: 16 } : null ] }
           { ...rest }

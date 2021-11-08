@@ -1,12 +1,11 @@
 import React from 'react';
-
-import { HomeDrower } from './MyApp/navigator/HomeDrower'
+import { HomeScreen } from './MyApp/Screens/HomeScreen'
 
 
 function App() {
   return (
 
-    <HomeDrower />
+    <HomeScreen />
 
   );
 }
