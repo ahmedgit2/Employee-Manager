@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet, SafeAreaView, View, TouchableHighlight } from "react-native";
+
 import { useNavigation } from "@react-navigation/core";
 
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
-import { Colors } from '../utils/Colors'
+import { NavegateToAddEmbButton } from "./NavegateToAddEmbButton";
 import { ListItem } from './ListItem'
 import { ListItemSeparator } from "./ListItemSeparator";
-import { ListItemDeleteSwipe } from './ListItemDeleteSwipe';
-
 
 const EmpData = [
     {
@@ -65,24 +62,7 @@ export function EmployeeList() {
 
             />
 
-            <TouchableHighlight underlayColor={ 'skyblue' }
-                style={ {
-                    width: 60,
-                    height: 60,
-                    borderRadius: 30,
-                    backgroundColor: Colors.Main_COLOR,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    alignSelf: 'flex-end',
-                    marginRight: 25,
-                    bottom: 20,
-                } }
-                onPress={ () => navigation.navigate('AddEmployee') }
-            >
-
-                <MaterialCommunityIcons name='plus-circle' size={ 40 } ></MaterialCommunityIcons>
-
-            </TouchableHighlight>
+            <NavegateToAddEmbButton onPress={ () => navigation.navigate('AddEmployee') } />
 
         </SafeAreaView >
     );

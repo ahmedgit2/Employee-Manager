@@ -1,70 +1,86 @@
 import React from 'react';
-import { Button, StyleSheet, ScrollView, View, Text } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import { ButtonStyle } from '../styles/ButtonStyle'
-import { Input } from '../Components/TextInputWithIcon'
+import { InputControler } from './InputControler'
 import { Roundimage } from '../Components/Roundimage'
-import { MyButton } from '../Components/MyButton'
-import { RoundButton } from '../Components/RoundButton'
+import { AddEmbButton } from './AddEmbButton'
 
 export function AddEmployeeForm() {
+    const { control, reset, handleSubmit, formState: { errors } } = useForm();
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors, isValid },
-    } = useForm()
-
-    const onSubmit = data => console.log(data);
+    const onSubmit = () => reset();
 
     return (
         <ScrollView style={ styles.Container }>
-
-            <Roundimage size={ 110 } otherstyle={ { marginVertical: 20 } } />
-
-            <Controller
+            <Roundimage size={ 100 } otherstyle={ { marginBottom: 25, marginTop: 15 } } />
+            <InputControler
                 control={ control }
                 name="name"
                 defaultValue=""
+                placeholder={ 'Employee Name' }
+                rules={ { required: (true, 'Employee Name Is Required') } }
+                errors={ errors.name ? errors.name.message : null }
+            />
+            <InputControler
+                control={ control }
+                name="email"
+                defaultValue=""
+                placeholder={ 'Email' }
                 rules={ {
-                    required: {
-                        value: true,
-                        message: 'Name is required!'
-                    }
+                    required: (true, 'Email Is Required'),
+                    pattern: {
+                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        message: 'Please enter valid email',
+                    },
                 } }
-                render={ ({ field: { onChange, value, onBlur } }) => (
-                    <View>
-                        <Input
-                            placeholder={ 'Employee Name' }
-                            onBlur={ onBlur }
-                            onChangeText={ onChange }
-                            value={ value }
-
-                        />
-                        { errors.firstName && <Text>This is required.</Text> }
-                    </View>
-
-                ) }
+                errors={ errors.email ? errors.email.message : null }
             />
 
-            <Input placeholder={ 'Email' } />
-            <Input placeholder={ 'Phone' } />
-            <Input placeholder={ 'Description' }
-                height={ 120 }
-                textAlignVertical={ 'top' }
-                multiline numberOfLines={ 7 } />
+            <InputControler
+                control={ control }
+                name="phone"
+                defaultValue=""
+                placeholder={ 'Phone' }
+                rules={ {
+                    required: (true, 'Phone Is Required'),
+                    pattern: {
+                        value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                        message: 'Please enter valid Phone Number',
+                    },
+                } }
+                errors={ errors.phone ? errors.phone.message : null }
+            />
+            <InputControler
+                control={ control }
+                name="Description"
+                defaultValue=""
+                placeholder={ 'Description' }
+                rules={ {
+                    required: (true, 'Description Is Required'),
+                    maxLength: {
+                        value: 10,
+                        message: 'Too Long (Maximum 10)'
+                    },
+                    minLength: {
+                        value: 5,
+                        message: 'Too Short (Minimum 5)'
+                    }
+                } }
+                errors={ errors.Description ? errors.Description.message : null }
 
-            <View style={ {
-                flex: 1, alignItems: 'center',
-                justifyContent: 'center',
-                alignContent: 'center',
-            } }>
-                <MyButton
-                    title={ '+ Add' }
-                    task={ handleSubmit(onSubmit) } />
-            </View>
+                exraStyles={ {
+                    height: 125,
+                    textAlignVertical: 'top',
+                    multiline: true,
+                    numberOfLines: 12
+                } }
+
+            />
+
+
+            <AddEmbButton onPress={ handleSubmit(onSubmit) } />
         </ScrollView>
 
     );

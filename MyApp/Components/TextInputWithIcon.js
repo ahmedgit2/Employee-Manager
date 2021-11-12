@@ -5,48 +5,33 @@ import { InputTextStyle } from '../styles/InputTextStyle'
 
 export function Input(props) {
 
-  //const [ Value, setValue ] = React.useState('');
-
   const {
     style,
     imagesource,
     placeholder,
     errors,
     colr,
+    exraStyles,
     ...rest
   } = props;
   return (
     <View>
-      <View style={ styles.Container }>
-        <TextInput
-          onChangeText={ () => { setValue(Value) } }
-          placeholder={ placeholder }
-          style={ [ InputTextStyle.inputtext, errors ? { borderColor: 'red', marginBottom: 16 } : null ] }
-          { ...rest }
+      <TextInput
+        placeholder={ placeholder }
+        style={ [ InputTextStyle.inputtext, exraStyles, errors ? { borderColor: 'red' } : { marginBottom: 10 } ] }
+        { ...rest }
+      />
+      { props.imagesource && (
+        <Image
+          source={ imagesource }
+          style={ [ InputTextStyle.imageStyle, { tintColor: colr }, errors ? { tintColor: 'red' } : null ] }
         />
-        { props.imagesource && (
-          <Image
-            source={ imagesource }
-            style={ [ InputTextStyle.imageStyle, { tintColor: colr }, errors ? { tintColor: 'red' } : null ] }
-          />
-        ) }
-      </View>
-      <View style={ InputTextStyle.err }>
-        { errors ? (
-          <Text style={ { fontWeight: 'bold', fontSize: 14, color: 'red', textAlign: 'left' } }>
-            { errors }
-          </Text>
-        ) : null }
-      </View>
+      ) }
+      { errors ? (
+        <Text style={ InputTextStyle.errorMessage }>
+          { errors }
+        </Text>
+      ) : null }
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  Container: {
-    flexDirection: 'row',
-    paddingBottom: 10,
-
-  },
-
-});

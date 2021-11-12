@@ -1,33 +1,43 @@
 import React from 'react';
-import { Text, View } from 'react-native'
-
+import { View } from 'react-native'
 import { Controller } from "react-hook-form";
 
-import { styles } from '../styles/InputTextStyle'
 import { Input } from '../Components/TextInputWithIcon'
 
-export function InputTextControler({
-    name, value, placeholder, defaultValue, control, rules, errors
+export function InputControler({
+    name,
+    placeholder,
+    defaultValue,
+    rules,
+    control,
+    errors,
+    exraStyles
 }) {
+
 
     return (
         <Controller
+            name={ name }
+            defaultValue={ defaultValue }
             control={ control }
             rules={ rules }
             render={ ({ field: { onChange, onBlur, value } }) => (
+
                 <View>
                     <Input
                         placeholder={ placeholder }
                         onBlur={ onBlur }
-                        onChangeText={ onChange } s
+                        onChangeText={ onChange }
                         value={ value }
+                        errors={ errors }
+                        exraStyles={ exraStyles }
                     />
-                    { errors ? <Text style={ { fontWeight: 'bold', fontSize: 14, color: 'red', textAlign: 'left' } }> This is required.</Text> : null }
                 </View>
+
             ) }
-            name={ name }
-            defaultValue={ defaultValue }
         />
+
+
 
     );
 }

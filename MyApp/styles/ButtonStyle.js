@@ -32,6 +32,25 @@ export const ButtonStyle = StyleSheet.create({
         textAlignVertical: 'center'
 
     },
+    navegateToAddEmp: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: Colors.Main_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-end',
+        marginRight: 25,
+        bottom: 20,
+    },
+    addEmbButton: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        paddingTop: 20,
+        paddingBottom: 30
+    }
 
 });
 
