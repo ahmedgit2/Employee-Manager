@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native'
 import { Controller } from "react-hook-form";
 
-import { Input } from '../Components/TextInputWithIcon'
+import { Input } from './TextInputWithIcon'
 
 export function InputControler({
     name,

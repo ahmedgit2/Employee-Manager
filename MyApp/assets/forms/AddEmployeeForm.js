@@ -3,9 +3,9 @@ import { StyleSheet, ScrollView } from 'react-native'
 
 import { useForm } from "react-hook-form";
 
-import { InputControler } from './InputControler'
+import { InputControler } from '../Components/InputControler'
 import { Roundimage } from '../Components/Roundimage'
-import { AddEmbButton } from './AddEmbButton'
+import { AddEmbButton } from '../Components/AddEmbButton'
 
 export function AddEmployeeForm() {
     const { control, reset, handleSubmit, formState: { errors } } = useForm();

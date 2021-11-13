@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { AddEmployee } from '../Screens/AddEmployee'
-import { EmployeeDetails } from '../Screens/EmployeeDetails'
-import { HomeDrower } from './HomeDrower'
+import { AddEmployee } from '../assets/Screens/AddEmployee'
+import { EmployeeDetails } from '../assets/Screens/EmployeeDetails'
+import { HomeScreen } from '../assets/Screens/HomeScreen'
 
 
 import { Colors } from '../utils/Colors';
@@ -12,14 +12,15 @@ import { Colors } from '../utils/Colors';
 const Stack = createStackNavigator();
 
 export function HomeStack() {
+
   return (
     <Stack.Navigator
       screenOptions={ { headerTintColor: Colors.white } }
     >
 
       <Stack.Screen
-        name="HomeDrower"
-        component={ HomeDrower }
+        name="HomeScreen"
+        component={ HomeScreen }
         options={ {
           title: '',
           headerShown: false
@@ -27,6 +28,7 @@ export function HomeStack() {
       />
 
       <Stack.Screen
+        screenOptions={ { headerShown: false } }
         name="AddEmployee"
         component={ AddEmployee }
         options={ {

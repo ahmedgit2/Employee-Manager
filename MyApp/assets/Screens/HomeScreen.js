@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { AppContainer } from '../navigator/AppContainer'
+import { EmployeeList } from '../forms/EmployeeListForm'
 
 export function HomeScreen() {
 
     return (
-        <AppContainer />
+        <EmployeeList />
     );
 }

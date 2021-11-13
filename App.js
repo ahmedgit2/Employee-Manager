@@ -1,10 +1,10 @@
 import React from 'react';
-import { HomeScreen } from './MyApp/Screens/HomeScreen';
+import { AppContainer } from './MyApp/navigator/AppContainer';
 
 function App() {
   return (
 
-    <HomeScreen />
+    <AppContainer />
 
   );
 }

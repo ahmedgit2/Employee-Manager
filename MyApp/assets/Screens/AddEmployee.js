@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddEmployeeForm } from '../Components/AddEmployeeForm'
+import { AddEmployeeForm } from '../forms/AddEmployeeForm'
 
 export function AddEmployee(navigation) {
 

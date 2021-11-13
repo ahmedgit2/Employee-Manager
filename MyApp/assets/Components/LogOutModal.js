@@ -8,11 +8,7 @@ import Modal from 'react-native-modal';
 import { ModalStyle } from '../styles/ModalStyle';
 
 
-export function LogoutModal({ Visible = false }) {
-
-    const [ ModalVisible, setModalVisible ] = useState(Visible);
-
-    const navigation = useNavigation();
+export function LogoutModal({ Visible, onBack, onPress }) {
 
     return (
 
@@ -21,19 +17,18 @@ export function LogoutModal({ Visible = false }) {
             animationIn={ 'slideInUp' }
             animationInTiming={ 500 }
             animationOutTiming={ 500 }
-            isVisible={ ModalVisible }
-            backdropOpacity={ 0.01 }
-            onBackdropPress={ () => setModalVisible(false) }
-            onModalHide={ () => { navigation.navigate('Logingout') } }
-
+            isVisible={ Visible }
+            backdropOpacity={ 0.4 }
+            onBackdropPress={ onBack }
         >
 
             <View style={ ModalStyle.centeredView }>
                 <View style={ ModalStyle.modalView }>
+
                     <Text style={ ModalStyle.modalText }>Are You Sure ! 😥</Text>
                     <Pressable
                         style={ [ ModalStyle.button, ModalStyle.buttonClose ] }
-                        onPress={ () => { setModalVisible(false) } }
+                        onPress={ onPress }
                     >
                         <Text style={ ModalStyle.textStyle }>🏃🏾‍♂️💨  Logout</Text>
                     </Pressable>

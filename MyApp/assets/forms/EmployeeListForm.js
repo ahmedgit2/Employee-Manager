@@ -3,9 +3,9 @@ import { FlatList, StyleSheet, SafeAreaView, View, TouchableHighlight } from "re
 
 import { useNavigation } from "@react-navigation/core";
 
-import { NavegateToAddEmbButton } from "./NavegateToAddEmbButton";
-import { ListItem } from './ListItem'
-import { ListItemSeparator } from "./ListItemSeparator";
+import { NavegateToAddEmbButton } from "../Components/NavegateToAddEmbButton";
+import { ListItem } from '../Components/ListItem'
+import { ListItemSeparator } from "../Components/ListItemSeparator";
 
 const EmpData = [
     {

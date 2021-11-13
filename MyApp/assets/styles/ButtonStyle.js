@@ -1,6 +1,6 @@
 
 import { StyleSheet } from 'react-native';
-import { Colors } from '../utils/Colors';
+import { Colors } from '../../utils/Colors';
 
 export const ButtonStyle = StyleSheet.create({
     Round: {
