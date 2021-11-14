@@ -4,9 +4,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import { HomeStack } from './HomeStack';
-import { LogoutSplash } from '../assets/Screens/LogoutSplash';
+import { LogoutSplash } from '../scr/Screens/LogoutSplash';
 
-import { DrawerContent } from '../assets/Components/DrawerContent';
+import { DrawerContent } from '../scr/Components/DrawerContent';
 
 import { Colors } from '../utils/Colors';
 

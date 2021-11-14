@@ -8,7 +8,7 @@ import { TextStyles } from '../styles/TextStyle'
 export function EmployeeDetails(props) {
 
     const {
-        img_uri = 'https://reactnative.dev/docs/assets/p_cat2.png',
+        img_uri = 'https://reactnative.dev/docs/scr/p_cat2.png',
         Name = 'Ali',
         email = 'Ali@gmail.com',
         phone = '01234567891',

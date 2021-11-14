@@ -7,6 +7,9 @@ import { NavegateToAddEmbButton } from "../Components/NavegateToAddEmbButton";
 import { ListItem } from '../Components/ListItem'
 import { ListItemSeparator } from "../Components/ListItemSeparator";
 
+import { useFirestore } from "../../firebase/useFirestore";
+
+
 const EmpData = [
     {
         id: 1,
@@ -33,14 +36,14 @@ const EmpData = [
 
 export function EmployeeList() {
 
-    const [ emplist, setemplist ] = useState(EmpData);
-    const [ refreshing, setRefreshing ] = useState(false);
     const navigation = useNavigation();
 
+    const [ emplist, setemplist ] = useState(EmpData);
+
     // Delete employee from EmpData
-    const handleDelete = (emp) => {
-        setemplist(emp.filter((m) => m.id !== emp.id));
-    };
+    // const handleDelete = (emp) => {
+    //    setemplist(emp.filter((m) => m.id !== emp.id));
+    //  };
 
     return (
         <SafeAreaView style={ styles.container }>

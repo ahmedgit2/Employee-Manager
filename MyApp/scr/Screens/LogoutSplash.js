@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export const LogoutSplash = (navigation) => {
+
+export const LogoutSplash = () => {
+
 
     return (
         <View style={ {

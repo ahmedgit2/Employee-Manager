@@ -16,7 +16,7 @@ export function LogoutModal({ Visible, onBack, onPress }) {
             transparent={ true }
             animationIn={ 'slideInUp' }
             animationInTiming={ 500 }
-            animationOutTiming={ 500 }
+            animationOutTiming={ 200 }
             isVisible={ Visible }
             backdropOpacity={ 0.4 }
             onBackdropPress={ onBack }

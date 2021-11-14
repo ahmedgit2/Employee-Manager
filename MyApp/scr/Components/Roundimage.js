@@ -17,8 +17,9 @@ export function Roundimage(props) {
                 borderRadius: size / 2
             }
             }
-
-                source={ { uri: img_uri } } />
+                source={ {
+                    uri: img_uri
+                } } />
         </View>
     );
 }

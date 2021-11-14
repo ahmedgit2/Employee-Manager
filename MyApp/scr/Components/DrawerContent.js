@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { DrawerItem, DrawerContentScrollView, } from '@react-navigation/drawer';
+import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -34,7 +34,6 @@ export function DrawerContent({ name = 'test', navigation, ...props }) {
           }
           Visible={ ModalVisible }
         />
-
         <DrawerItem
           icon={ ({ focused, color, size }) => (
             <AntDesign color={ color } size={ size } name={
