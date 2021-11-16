@@ -39,9 +39,9 @@ export const ButtonStyle = StyleSheet.create({
         backgroundColor: Colors.Main_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'flex-end',
-        marginRight: 25,
+        position: 'absolute',
         bottom: 20,
+        right: 20
     },
     addEmbButton: {
         flex: 1,

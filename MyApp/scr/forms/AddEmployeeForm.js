@@ -1,20 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native'
 
 import { useForm } from "react-hook-form";
+import { AddEmp } from '../../firebase/AddEmp'
+import { useNavigation } from '@react-navigation/core';
 
 import { InputControler } from '../Components/InputControler'
 import { Roundimage } from '../Components/Roundimage'
 import { AddEmbButton } from '../Components/AddEmbButton'
 
-export function AddEmployeeForm() {
-    const { control, reset, handleSubmit, formState: { errors } } = useForm();
+import { Colors } from '../../utils/Colors';
 
-    const onSubmit = () => reset();
+export function AddEmployeeForm() {
+    const { getValues, control, reset, handleSubmit, formState: { errors } } = useForm();
+
+    const navigation = useNavigation();
+
+    const onSubmit = () => {
+        AddEmp(
+            {
+                name: getValues('name'),
+                email: getValues('email'),
+                phone: getValues('phone'),
+                desc: getValues('Description'),
+                image: ''
+            }
+        );
+        reset();
+
+        navigation.goBack();
+    }
 
     return (
         <ScrollView style={ styles.Container }>
-            <Roundimage size={ 100 } otherstyle={ { marginBottom: 25, marginTop: 15 } } />
+
+            <Roundimage size={ 100 }
+                otherstyle={ {
+                    borderWidth: 2,
+                    borderColor: Colors.Main_COLOR,
+                    marginVertical: 12,
+
+                } }
+            />
+
             <InputControler
                 control={ control }
                 name="name"
@@ -23,6 +51,7 @@ export function AddEmployeeForm() {
                 rules={ { required: (true, 'Employee Name Is Required') } }
                 errors={ errors.name ? errors.name.message : null }
             />
+
             <InputControler
                 control={ control }
                 name="email"
@@ -70,13 +99,13 @@ export function AddEmployeeForm() {
                 } }
                 errors={ errors.Description ? errors.Description.message : null }
 
-                exraStyles={ {
+                otherStyle={ {
                     height: 125,
                     textAlignVertical: 'top',
-                    multiline: true,
-                    numberOfLines: 12
                 } }
 
+                multiline={ true }
+                numberOfLines={ 12 }
             />
 
 

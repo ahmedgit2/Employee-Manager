@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, StyleSheet, View, Image } from 'react-native';
+import { Text, TextInput, View, Image } from 'react-native';
 
 import { InputTextStyle } from '../styles/InputTextStyle'
 
@@ -11,14 +11,21 @@ export function Input(props) {
     placeholder,
     errors,
     colr,
-    exraStyles,
+    otherStyle,
+    multiline,
+    numberOfLines,
     ...rest
   } = props;
+
   return (
     <View>
       <TextInput
+
+        multiline={ multiline }
+        numberOfLines={ numberOfLines }
         placeholder={ placeholder }
-        style={ [ InputTextStyle.inputtext, exraStyles, errors ? { borderColor: 'red' } : { marginBottom: 10 } ] }
+
+        style={ [ InputTextStyle.inputtext, { ...otherStyle }, errors ? { borderColor: 'red' } : { marginBottom: 10 } ] }
         { ...rest }
       />
       { props.imagesource && (

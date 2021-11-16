@@ -1,8 +1,8 @@
 import React from 'react';
 import { TouchableHighlight } from 'react-native';
 
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+import Icon from 'react-native-vector-icons/Fontisto';
+import { Colors } from '../../utils/Colors';
 import { ButtonStyle } from '../styles/ButtonStyle';
 
 export function NavegateToAddEmbButton({ onPress }) {
@@ -13,7 +13,7 @@ export function NavegateToAddEmbButton({ onPress }) {
             onPress={ onPress }
         >
 
-            <MaterialCommunityIcons name='plus-circle' size={ 40 } ></MaterialCommunityIcons>
+            <Icon name="plus-a" size={ 20 } color={ Colors.white } />
 
         </TouchableHighlight>
     )

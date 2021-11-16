@@ -11,9 +11,10 @@ export function InputControler({
     rules,
     control,
     errors,
-    exraStyles
+    otherStyle,
+    multiline,
+    numberOfLines,
 }) {
-
 
     return (
         <Controller
@@ -22,7 +23,6 @@ export function InputControler({
             control={ control }
             rules={ rules }
             render={ ({ field: { onChange, onBlur, value } }) => (
-
                 <View>
                     <Input
                         placeholder={ placeholder }
@@ -30,7 +30,9 @@ export function InputControler({
                         onChangeText={ onChange }
                         value={ value }
                         errors={ errors }
-                        exraStyles={ exraStyles }
+                        otherStyle={ otherStyle }
+                        multiline={ multiline }
+                        numberOfLines={ numberOfLines }
                     />
                 </View>
 

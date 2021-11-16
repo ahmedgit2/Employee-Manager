@@ -1,40 +1,24 @@
-import { collection, getDocs } from "@firebase/firestore";
 import { useState, useEffect } from "react";
 
-import { db } from './firestore'
+import { collection, onSnapshot } from "firebase/firestore";
+import db from './firestore'
 
-
-export const useFirestore = () => {
-
+export function useFirestore() {
     const [ employees, setemployees ] = useState([]);
 
     useEffect(() => {
-        onSnapshot(collection(db, "Employees"), (Snapshot) => {
+        const unSub = onSnapshot(collection(db, "Employees"), (snapshot) => {
+            setemployees(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-            setemployees(Snapshot.docs.map((doc) => doc.data()))
-
-            console.log(employees)
+            return (
+                unSub()
+            );
         })
 
+    }, [ employees ])
 
-    }, [])
+    return (
+        employees
+    )
 }
 
-// same func with async - await
-/*
-export const useFirestore = () => {
-    const [ employees, setemployees ] = useState([]);
-    const empRef = collection(db, 'Employee')
-    useEffect(() => {
-        const getEmp = async () => {
-            const data = await getDocs(empRef);
-            console.log(data)
-        };
-
-        getEmp();
-
-    }, [])
-
-    return items;
-
-}*/

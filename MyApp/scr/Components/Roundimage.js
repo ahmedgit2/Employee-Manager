@@ -1,24 +1,27 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native'
 
+const img = "http://www.diaraltamer.com/Admin/Uploads/AR/201910131655599168.jpg";
+
 export function Roundimage(props) {
     const {
-        img_uri = 'https://reactjs.org/logo-og.png',
+        img_uri = '',
         size = 130,
         otherstyle
     } = props
 
     return (
-        <View style={ [ styles.Container, { ...otherstyle } ] }>
+        <View style={ [ styles.Container ] }>
 
-            <Image style={ {
+            <Image style={ [ {
                 height: size,
                 width: size,
-                borderRadius: size / 2
-            }
+                borderRadius: size / 2,
+
+            }, otherstyle ]
             }
                 source={ {
-                    uri: img_uri
+                    uri: img_uri === "" ? img : img_uri
                 } } />
         </View>
     );

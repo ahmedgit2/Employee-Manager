@@ -36,7 +36,7 @@ export function DrawerContent({ name = 'test', navigation, ...props }) {
         />
         <DrawerItem
           icon={ ({ focused, color, size }) => (
-            <AntDesign color={ color } size={ size } name={
+            <AntDesign color={ color } size={ 25 } name={
               focused ? 'home' : 'home' } />
           ) }
           label="Home"
@@ -52,7 +52,7 @@ export function DrawerContent({ name = 'test', navigation, ...props }) {
 
           label="Logout"
           icon={ ({ focused, color, size }) => (
-            <AntDesign color={ color } size={ size } name={
+            <AntDesign color={ color } size={ 23 } name={
               focused ? 'logout' : 'logout' } />
           ) }
           onPress={ () => {

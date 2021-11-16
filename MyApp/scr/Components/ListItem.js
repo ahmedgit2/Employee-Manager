@@ -11,7 +11,7 @@ export function ListItem(props) {
         name = 'Ali',
         email = 'Ali@gmail.com',
         phone = '01234567891',
-        img = 'https://reactjs.org/logo-og.png',
+        img,
         onPress,
     } = props;
 

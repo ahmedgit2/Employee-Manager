@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, StyleSheet, SafeAreaView, View, TouchableHighlight } from "react-native";
+import { FlatList, StyleSheet, SafeAreaView, View, TouchableHighlight, Text } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
@@ -9,36 +9,10 @@ import { ListItemSeparator } from "../Components/ListItemSeparator";
 
 import { useFirestore } from "../../firebase/useFirestore";
 
-
-const EmpData = [
-    {
-        id: 1,
-        name: "Ali",
-        email: "ali@gmail.com",
-        phone: '123132132',
-        image: 'https://reactjs.org/logo-og.png',
-    },
-    {
-        id: 2,
-        name: "Hossam",
-        email: "hossam@yahoo.com",
-        phone: '5554555415',
-        image: 'https://reactjs.org/logo-og.png',
-    }, {
-        id: 3,
-        name: "ssssss",
-        email: "ssssssssss@yahoo.com",
-        phone: '23234234234',
-        image: 'https://reactjs.org/logo-og.png',
-    },
-];
-
-
 export function EmployeeList() {
 
     const navigation = useNavigation();
-
-    const [ emplist, setemplist ] = useState(EmpData);
+    const emplist = useFirestore();
 
     // Delete employee from EmpData
     // const handleDelete = (emp) => {
@@ -47,24 +21,32 @@ export function EmployeeList() {
 
     return (
         <SafeAreaView style={ styles.container }>
-            <FlatList
-                data={ emplist }
-                keyExtractor={ (emp) => emp.id.toString() }
-                renderItem={ ({ item }) => (
-                    <ListItem
-                        id={ item.id }
-                        name={ item.name }
-                        email={ item.email }
-                        phone={ item.phone }
-                        img={ item.image }
-                        onPress={ () => navigation.navigate('EmployeeDetails') }
+            { emplist ?
+                <FlatList
+                    data={ emplist }
+                    keyExtractor={ (emp) => emp.id.toString() }
+                    renderItem={ ({ item }) => (
+                        <ListItem
+                            id={ item.id }
+                            name={ item.name }
+                            email={ item.email }
+                            phone={ item.phone }
+                            img={ item.image }
 
-                    />) }
+                            onPress={ () => navigation.navigate('EmployeeDetails', item) }
 
-                ItemSeparatorComponent={ ListItemSeparator }
+                        />) }
 
-            />
-
+                    ItemSeparatorComponent={ ListItemSeparator }
+                />
+                :
+                <View style={ styles.noData }>
+                    <Text style={ styles.title }>No Employees Yet</Text>
+                    <Text>
+                        You Can Add New Employees
+                        By ........asddsfsdffsf</Text>
+                </View>
+            }
             <NavegateToAddEmbButton onPress={ () => navigation.navigate('AddEmployee') } />
 
         </SafeAreaView >
@@ -81,9 +63,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9c2ff',
         padding: 20,
         marginHorizontal: 16,
+        flex: 1
     },
     title: {
-        fontSize: 32,
+        fontSize: 25,
     },
+    noData: {
+        flex: 1,
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: 'center'
+    }
 });
 
