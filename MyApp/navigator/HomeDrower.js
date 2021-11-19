@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import { HomeStack } from './HomeStack';
-import { LogoutSplash } from '../scr/Screens/LogoutSplash';
-
-import { DrawerContent } from '../scr/Components/DrawerContent';
+import { LogoutSplash } from '../screens/LogoutSplash';
+import { DrawerContent } from '../components/drawerContent';
 
 import { Colors } from '../utils/Colors';
 
@@ -23,21 +21,7 @@ export function HomeDrower() {
             <Drawer.Screen
                 name="Home"
                 component={ HomeStack }
-                options={ ({ route }) => {
-                    const routeName = getFocusedRouteNameFromRoute(route) ?? 'HomeScreen'
-                    if (routeName == "HomeScreen") {
-                        return ({
-                            title: '',
-                            drawerLabel: 'Home',
-                            headerStyle: { backgroundColor: Colors.Main_COLOR }
-                        })
-                    }
-                    else {
-                        return ({
-                            headerShown: false
-                        })
-                    }
-                } }
+                options={ { headerShown: false } }
 
             />
 
@@ -55,3 +39,36 @@ export function HomeDrower() {
         </Drawer.Navigator >
     );
 }
+
+
+// Header option : show heder only on home screen
+
+/*
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
+options={ ({ route }) => {
+     const routeName = getFocusedRouteNameFromRoute(route) ?? 'HomeScreen'
+     if (routeName == "HomeScreen") {
+         return ({
+             title: '',
+             drawerLabel: 'Home',
+             headerStyle: { backgroundColor: Colors.Main_COLOR },
+             headerRight: () => (
+                 <HeaderButtons
+                     size={ 30 }
+                     iconLeft={ 'arrow-down-circle' }
+                     iconMiddle={ 'arrow-up-circle' }
+                     iconRight={ 'refresh-circle' }
+                     onPressLeft={ () => alert('left') }
+                     onPressMiddle={ () => alert('Middle') }
+                     onPressRight={ () => alert('right') } />
+             )
+         })
+     }
+     else {
+         return ({
+             headerShown: false
+         })
+     }
+ } }
+*/

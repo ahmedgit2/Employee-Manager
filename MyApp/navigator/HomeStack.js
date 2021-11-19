@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { AddEmployee } from '../scr/Screens/AddEmployee'
-import { EmployeeDetails } from '../scr/Screens/EmployeeDetails'
-import { HomeScreen } from '../scr/Screens/HomeScreen'
+import { AddEmployee } from '../screens/AddEmployee'
+import { EmployeeDetails } from '../screens/EmployeeDetails'
+import { HomeScreen } from '../screens/HomeScreen'
 
 
 import { Colors } from '../utils/Colors';
