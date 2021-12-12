@@ -16,7 +16,7 @@ export function Roundimage({
 }) {
     return (
         <View style={ [ styles.Container ] }>
-            <TouchableOpacity activeOpacity={ addIcon ? 0.2 : 100 } onPress={ onPress }>
+            <TouchableOpacity activeOpacity={ addIcon ? 0.2 : 0.8 } onPress={ onPress }>
                 <View >
                     <Image
                         source={ { uri: img_uri ? img_uri : defaultImage } }
@@ -27,6 +27,7 @@ export function Roundimage({
 
                         }, { ...otherstyle } ] }
                     />
+
                     { addIcon && <Icon
                         name={ "add-circle" }
                         size={ 30 }
@@ -40,7 +41,6 @@ export function Roundimage({
                         } } /> }
                 </View>
             </TouchableOpacity>
-
         </View>
     );
 }

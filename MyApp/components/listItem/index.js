@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+//import Swipeable from 'react-native-gesture-handler/Swipeable';
 
+import { ViewImageModal } from "../viewImageModal";
 import { Roundimage } from '../roundImage'
 import { TextStyles } from './style'
 
 export function ListItem(props) {
+
+    const [ isModalVisible, setModalVisible ] = useState(false);
 
     const {
         id = 1,
@@ -24,8 +27,16 @@ export function ListItem(props) {
 
             <View style={ { flexDirection: 'row' } } >
 
-
-                <Roundimage img_uri={ img } size={ 67 } otherstyle={ { marginLeft: 15 } } />
+                <ViewImageModal
+                    Visible={ isModalVisible }
+                    onBack={ () => setModalVisible(false) }
+                    img_uri={ img }
+                />
+                <Roundimage
+                    img_uri={ img }
+                    size={ 67 }
+                    otherstyle={ { marginLeft: 15 } }
+                    onPress={ () => setModalVisible(true) } />
 
                 <View style={ { marginLeft: 15, justifyContent: 'center' } } >
                     <Text style={ [ TextStyles.ItemText, { fontWeight: 'bold' } ] }>Name</Text>

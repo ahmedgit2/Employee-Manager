@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Platform, PermissionsAndroid } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera } from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 
 export const chooseImage = async () => {
 
-    const response = await ImagePicker.openCamera({
+    const response = await ImagePicker.openPicker({
         mediaType: 'photo',
         width: 600,
         height: 600,
