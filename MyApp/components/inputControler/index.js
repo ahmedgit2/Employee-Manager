@@ -14,6 +14,7 @@ export function InputControler({
     otherStyle,
     multiline,
     numberOfLines,
+    keyboardType
 }) {
 
     return (
@@ -33,6 +34,7 @@ export function InputControler({
                         otherStyle={ otherStyle }
                         multiline={ multiline }
                         numberOfLines={ numberOfLines }
+                        keyboardType={ keyboardType }
                     />
                 </View>
 

@@ -1,42 +1,42 @@
+import React,{useState} from 'react'
 import { collection, startAfter, getDocs, limit, query,orderBy } from "firebase/firestore";
 import db from './firestore'
 
 const empRef = (collection(db, "Employees"));
 
-export async function getFirstPage() {
-    const emp = query(empRef,orderBy("name"),limit(7));
-    const documentSnapshots = await getDocs(emp);
-    const employeesData = documentSnapshots.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
+const docRef = (Page,lastVisible)=> {
+    let myQuery ;
+    if(Page <= 1){
+        myQuery = query(empRef,orderBy("name"),limit(7));
+    }
+    else{
+        myQuery =query(empRef,orderBy("name"),startAfter(lastVisible),limit(2));
+    }
+    return myQuery;
+}
+  
+export async function getEmployees(Page,lastVisible) {
 
-    return (
-        {
-            employees:employeesData,
-            lastVisible: lastVisible
-        })     
+    const documentSnapshots = await getDocs(docRef(Page,lastVisible));
+    
+    const employeesData = documentSnapshots.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    
+    const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length -1 ];
+ 
+    return ({
+        employeesData :employeesData ,
+        lastDoc:lastDoc,
+    })
+           
     }
 
-    export async function getMore(startafter) {
-        console.log('startafter',startafter)
 
-        const emp = query(empRef, 
-            orderBy("name"),
-            startAfter(startafter),
-            limit(2));
-        const documentSnapshots = await getDocs(emp);
-        const nextEmployeesData = documentSnapshots.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        const lastVisible = documentSnapshots.docs[ documentSnapshots.docs.length - 1 ];
-        
-        return (
-            {
-                employees:nextEmployeesData,
-                lastVisible: lastVisible
-            })
-            
-        }
-        
 
-    //Get All Date On Snap Shot 
+    
+
+    
+    //Get All Date On Snapshot 
+
     /*
     export function useFirestore() {
 
@@ -53,16 +53,5 @@ export async function getFirstPage() {
         employees
     )
 }
-*/
-
-
-//For Pagination
-
-/*
- const lastVisible = documentSnapshots.docs[ documentSnapshots.docs.length - 1 ];
-
-
-const next = query(empRef, startAfter(lastVisible), limit(6));
-
 */
 

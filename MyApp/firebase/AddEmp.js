@@ -2,7 +2,9 @@
 import { addDoc, collection } from "firebase/firestore";
 import db from './firestore'
 
-export const AddEmp = async ({ name, email, phone, desc, Image }) => {
+
+export const AddEmp = async ({ name, email, phone, desc, image }) => {
+
     // Add a new document in collection "Employees"
     const collectionRef = (collection(db, 'Employees'))
 
@@ -11,9 +13,9 @@ export const AddEmp = async ({ name, email, phone, desc, Image }) => {
         email: email,
         phone: phone,
         desc: desc,
-        Image: ''
+        image: image
     }
 
-    await addDoc(collectionRef, payLoad);
-    console.log(payLoad.name + 'added')
+    await addDoc(collectionRef, payLoad)
+
 }

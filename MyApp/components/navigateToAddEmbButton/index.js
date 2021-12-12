@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Fontisto';
 import { Colors } from '../../utils/Colors';
 import { ButtonStyle } from './style';
 
-export function NavegateToAddEmbButton({ onPress }) {
+export function NavigateToAddEmbButton({ onPress }) {
     return (
         <TouchableHighlight
             underlayColor={ 'skyblue' }

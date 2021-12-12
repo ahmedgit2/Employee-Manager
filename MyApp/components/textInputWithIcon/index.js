@@ -14,6 +14,7 @@ export function Input(props) {
     otherStyle,
     multiline,
     numberOfLines,
+    keyboardType,
     ...rest
   } = props;
 
@@ -24,6 +25,7 @@ export function Input(props) {
         multiline={ multiline }
         numberOfLines={ numberOfLines }
         placeholder={ placeholder }
+        keyboardType={ keyboardType }
 
         style={ [ InputTextStyle.inputtext, { ...otherStyle }, errors ? { borderColor: 'red' } : { marginBottom: 10 } ] }
         { ...rest }

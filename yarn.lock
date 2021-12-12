@@ -6335,11 +6335,6 @@
   dependencies:
     "prop-types" "^15.7.2"
 
-"react-native-awesome-loading@^1.0.15":
-  "integrity" "sha512-PkRtL3k/T2jqhiBsUl1Hls7HoNGpg5NS5Ro7RoBcbcR67KgJI7FxLeY+aOJzNZGTJvGTRznqtIsIG6dlGKXTHw=="
-  "resolved" "https://registry.npmjs.org/react-native-awesome-loading/-/react-native-awesome-loading-1.0.15.tgz"
-  "version" "1.0.15"
-
 "react-native-codegen@^0.0.7":
   "integrity" "sha512-dwNgR8zJ3ALr480QnAmpTiqvFo+rDtq6V5oCggKhYFlRjzOmVSFn3YD41u8ltvKS5G2nQ8gCs2vReFFnRGLYng=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.7.tgz"
@@ -6369,6 +6364,11 @@
     "hoist-non-react-statics" "^3.3.0"
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
+
+"react-native-image-crop-picker@^0.33.2":
+  "integrity" "sha512-RtOcPtshOAX2rXTFnfo2bXQVFkd0W8QifgUlzlDC8uCArt9P9++pygdXdhrLr1fk+mdiiYATQqIj1Xn3InPhfg=="
+  "resolved" "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.33.2.tgz"
+  "version" "0.33.2"
 
 "react-native-image-picker@^4.3.0":
   "integrity" "sha512-YJtpuNHK7PS4ujbsSVAL6rKW4QQEDTf80MxuPmwByYgMi01VbfkXZ/8+pf61ctOED3Z0ZZKbk7/3pJ0dQHVAbg=="

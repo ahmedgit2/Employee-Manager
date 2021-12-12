@@ -7,7 +7,8 @@ import { TextStyles } from './style'
 
 export function ListItem(props) {
 
-    const { id = 1,
+    const {
+        id = 1,
         name = 'Ali',
         email = 'Ali@gmail.com',
         phone = '01234567891',
@@ -27,12 +28,12 @@ export function ListItem(props) {
                 <Roundimage img_uri={ img } size={ 67 } otherstyle={ { marginLeft: 15 } } />
 
                 <View style={ { marginLeft: 15, justifyContent: 'center' } } >
-                    <Text style={ TextStyles.ItemText }>Name</Text>
+                    <Text style={ [ TextStyles.ItemText, { fontWeight: 'bold' } ] }>Name</Text>
                     <Text style={ TextStyles.ItemText }>Email</Text>
                     <Text style={ TextStyles.ItemText }>Phone</Text>
                 </View>
                 <View style={ { marginLeft: 15, justifyContent: 'center' } }>
-                    <Text style={ TextStyles.ItemText }>{ name }</Text>
+                    <Text style={ [ TextStyles.ItemText, { fontWeight: 'bold' } ] }>{ name }</Text>
                     <Text style={ TextStyles.ItemText }>{ email }</Text>
                     <Text style={ TextStyles.ItemText }>{ phone }</Text>
                 </View>

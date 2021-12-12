@@ -1,90 +1,72 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FlatList, ActivityIndicator, StyleSheet, SafeAreaView, View, Text } from "react-native";
+import { FlatList, StyleSheet, SafeAreaView, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import { getMore, getFirstPage } from "../../firebase/useFirestore";
+import { getEmployees } from "../../firebase/useFirestore";
 
-import { HomeHeader } from '../homeHeader';
 import { NoDataView } from '../noDataView';
-import { Spinner } from '../spinner';
 import { Loading } from '../spinner';
-import { NavegateToAddEmbButton } from "../navegateToAddEmbButton";
+import { Spinner } from '../spinner';
 import { ListItem } from '../listItem';
 import { ListItemSeparator } from "../listItemSeparator";
-import { object } from "yup";
 
 
-export function EmployeeList() {
+export function EmployeeList({ RefreshButton, listRef }) {
 
     const navigation = useNavigation();
-    const listRef = useRef(null);
 
-    const [ emplist, setemplist ] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(false);
-    const [ lastVisible, setlastVisible ] = useState(object);
-    const [ lastPage, setllastPage ] = useState(false);
-    const [ isRefresh, setisRefresh ] = useState(false);
+    const [ Page, SetPage ] = useState(1);
+    const [ empList, setEmpList ] = useState([]);
+    const [ lastVisible, setlastVisible ] = useState({});// the firestore object of the last item loaded
+    const [ isRefresh, setisRefresh ] = useState(false); //  for the big indicator => refresh all
+    const [ isLoadingMore, setIsLoadingMore ] = useState(false); // for down screen indicator => load More
+    const [ lastPage, setLastPage ] = useState(false); // used to prevent loading More if No Data Returned 
 
     useEffect(() => {
-        getFirstPage().then((response) => {
-            console.log(emplist)
-            setemplist(response.employees);
-            setlastVisible(response.lastVisible);
-            setisRefresh(false);
-            setllastPage(false)
-        }).catch((error) => {
-            console.log(" first open call error", error);
-            alert(error.message);
-        })
-    }, [ isRefresh ])
+        LoadEmployeeData();
+    }, [ Page ])
 
-    function loadMore() {
-        if (!lastPage) {
-            setIsLoading(true);
-            getMore(lastVisible).then((response) => {
-                setllastPage(false);
-                setemplist([ ...emplist, ...response.employees ]);
-                setlastVisible(response.lastVisible);
-                setIsLoading(false);
-                console.log(emplist)
-                response.employees.length === 0 ? setllastPage(true)
-                    : setllastPage(false)
-            }).catch((error) => {
-                console.log("Get More call error", error);
-                alert(error.message);
-            })
+    useEffect(() => { // use to Refresh : on press Header Refresh button
+        SetPage(1);
+        if (Page == 1) LoadEmployeeData();
+    }, [ RefreshButton ])
+
+    const LoadEmployeeData = async () => {
+        try {
+            // Set the Loading and Refresh state 
+            if (Page == 1) { setisRefresh(true); setLastPage(false) }
+            if (Page > 1) { if (lastPage) return; else setIsLoadingMore(true) }
+
+            // load Employees 
+            const EmployeeData = await getEmployees(Page, lastVisible)
+            // if No Data Returned Set lastPage To True 
+            if (EmployeeData.employeesData.length == 0) { setLastPage(true); return; }
+
+            //set Employee List 
+            setlastVisible(EmployeeData.lastDoc);
+            if (Page == 1) setEmpList(EmployeeData.employeesData);
+            if (Page > 1) setEmpList([ ...empList, ...EmployeeData.employeesData ]);
+
         }
+        catch (error) { console.log('error'); }
+        finally { setisRefresh(false); setIsLoadingMore(false); }
     }
 
-
-    // To Do Later ==> (Delete employee) 
-    // const handleDelete = (emp) => {
-    //    setemplist(emp.filter((m) => m.id !== emp.id));
-    //  };
-
-    return (
-        <SafeAreaView style={ styles.container }>
-            <HomeHeader
-                onPressDrawer={ () => navigation.openDrawer() }
-                onPressRefresh={ () => setisRefresh(true) }
-                onPressUp={ () => {
-                    listRef.current.scrollToOffset({ offset: 0, animated: true })
-                } }
-                onPressDown={ () => {
-                    listRef.current.scrollToEnd({ animated: true })
-                } }
-            />
-
-            { emplist ?
+    // Return :=> FlatList Component 
+    if (empList) {
+        if (isRefresh)
+            return <Loading />
+        else
+            return (
                 <FlatList
-                    ref={ listRef }
-                    onEndReached={ () => loadMore() }
-                    onRefresh={ () => setisRefresh(true) }
+                    onRefresh={ () => SetPage(1) }
                     refreshing={ isRefresh }
-                    ListFooterComponent={ () => isLoading && <Spinner /> }
-                    contentContainerStyle={ { paddingBottom: 20 } }
+                    onEndReached={ () => SetPage(Page + 1) }
+                    ListFooterComponent={ () => isLoadingMore && <Spinner /> }
+                    ListFooterComponentStyle={ !lastPage && { marginBottom: 40 } }
                     ItemSeparatorComponent={ ListItemSeparator }
+                    ref={ listRef }
 
-                    data={ emplist }
+                    data={ empList }
                     keyExtractor={ (emp) => emp.id.toString() }
                     renderItem={ ({ item }) => (
                         <ListItem
@@ -94,34 +76,10 @@ export function EmployeeList() {
                             phone={ item.phone }
                             img={ item.image }
                             onPress={ () => navigation.navigate('EmployeeDetails', item) }
-                        />) }
+                        />
+                    ) }
                 />
-                :
-                <NoDataView />
-
-            }
-            <NavegateToAddEmbButton onPress={ () => navigation.navigate('AddEmployee') } />
-
-
-        </SafeAreaView >
-    );
+            )
+    }
+    else return <NoDataView />
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    item: {
-        backgroundColor: '#f9c2ff',
-        padding: 20,
-        marginHorizontal: 16,
-        flex: 1
-    },
-    title: {
-        fontSize: 25,
-    },
-
-
-
-});
-

@@ -7,13 +7,14 @@ import { Colors } from '../../utils/Colors';
 
 export function HeaderButton({
     onPress,
-    icon,
-    size = 30,
-    ...rest
+    icon = 'plus',
+    size = 35,
+    color = Colors.white,
+    otherStyle
 }) {
     return (
-        <Pressable onPress={ onPress } >
-            <Icon name={ icon } size={ size } color={ Colors.white } />
+        <Pressable style={ { ...otherStyle } } onPress={ onPress } >
+            <Icon name={ icon } size={ size } color={ color } />
         </Pressable>
     )
 }

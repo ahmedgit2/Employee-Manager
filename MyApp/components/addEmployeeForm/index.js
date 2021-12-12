@@ -2,45 +2,68 @@ import React, { useState } from 'react';
 import { ScrollView } from 'react-native'
 
 import { useForm } from "react-hook-form";
-import { AddEmp } from '../../firebase/AddEmp'
 import { useNavigation } from '@react-navigation/core';
+import { UploadPicAndAddEmp } from '../../firebase/uploadPicThenAddEmp'
 
 import { InputControler } from '../inputControler'
 import { Roundimage } from '../roundImage'
 import { AddEmbButton } from '../addEmpButton'
-
+import { ImagePickerModal } from '../imagePickerModal'
+import { chooseImage, openCamera } from '../imagePicker'
 import { Colors } from '../../utils/Colors';
 
-export function AddEmployeeForm() {
-    const { getValues, control, reset, handleSubmit, formState: { errors } } = useForm();
+const defaultImage = "http://www.diaraltamer.com/Admin/Uploads/AR/201910131655599168.jpg";
 
+export function AddEmployeeForm() {
+    const [ isModalVisible, setModalVisible ] = useState(false);
+    const [ imageUri, setImageUri ] = useState(defaultImage);
     const navigation = useNavigation();
 
-    const onSubmit = () => {
-        AddEmp(
-            {
-                name: getValues('name'),
-                email: getValues('email'),
-                phone: getValues('phone'),
-                desc: getValues('Description'),
-                image: ''
-            }
-        );
-        reset();
+    const { getValues, control, reset, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
 
+    const onSubmit = () => {
+        UploadPicAndAddEmp({
+            name: getValues('name'),
+            email: getValues('email'),
+            phone: getValues('phone'),
+            desc: getValues('Description'),
+            image: imageUri
+        });
+        reset();
         navigation.goBack();
     }
 
+    const choosePicture = async (OpenCam) => {
+        const res = OpenCam
+            ? await openCamera()
+            : await chooseImage()
+        if (res) {
+            setImageUri(res.path)
+            setModalVisible(false);
+        }
+    }
+
+
     return (
         <ScrollView style={ { flex: 1 } }>
-
-            <Roundimage size={ 100 }
+            <Roundimage
+                addIcon={ true }
+                img_uri={ imageUri }
+                size={ 100 }
+                onPress={ () => setModalVisible(true) }
                 otherstyle={ {
                     borderWidth: 2,
                     borderColor: Colors.Main_COLOR,
-                    marginVertical: 12,
-
+                    marginVertical: 13,
                 } }
+            />
+
+            <ImagePickerModal
+                Visible={ isModalVisible }
+                onBack={ () => setModalVisible(false) }
+                onPressChoosePic={ () => choosePicture(false) }
+                onPressOpenCam={ () => choosePicture(true) }
+                onPressDelete={ () => { setImageUri(defaultImage); setModalVisible(false) } }
             />
 
             <InputControler
@@ -72,6 +95,7 @@ export function AddEmployeeForm() {
                 name="phone"
                 defaultValue=""
                 placeholder={ 'Phone' }
+                keyboardType={ 'phone-pad' }
                 rules={ {
                     required: (true, 'Phone Is Required'),
                     pattern: {
@@ -89,11 +113,11 @@ export function AddEmployeeForm() {
                 rules={ {
                     required: (true, 'Description Is Required'),
                     maxLength: {
-                        value: 10,
+                        value: 500,
                         message: 'Too Long (Maximum 10)'
                     },
                     minLength: {
-                        value: 5,
+                        value: 10,
                         message: 'Too Short (Minimum 5)'
                     }
                 } }
@@ -109,7 +133,7 @@ export function AddEmployeeForm() {
             />
 
 
-            <AddEmbButton onPress={ handleSubmit(onSubmit) } />
+            <AddEmbButton onPress={ onSubmit } />
         </ScrollView>
 
     );
