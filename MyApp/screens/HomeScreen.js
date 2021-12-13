@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SafeAreaView } from "react-native";
 
 import { HomeHeader } from '../components/homeHeader';
@@ -7,9 +7,8 @@ import { EmployeeList } from '../components/employeeListForm'
 import { styles } from "../components/employeeListForm/style";
 
 export function HomeScreen({ navigation }) {
-
     const [ RefreshButton, setRefreshButton ] = useState(false)    // For Refresh Buttons 
-    const listRef = useRef(null);                              // For Scroll Buttons 
+    const listRef = useRef(null);        // For Scroll Buttons 
 
     return (
         <SafeAreaView style={ styles.container }>

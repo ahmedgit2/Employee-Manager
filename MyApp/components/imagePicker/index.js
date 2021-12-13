@@ -13,7 +13,6 @@ export const chooseImage = async () => {
     })
 
     const path = response.path;
-
     return {
         path: path,
     }

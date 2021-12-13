@@ -9,28 +9,35 @@ import { InputControler } from '../inputControler'
 import { Roundimage } from '../roundImage'
 import { AddEmbButton } from '../addEmpButton'
 import { ImagePickerModal } from '../imagePickerModal'
+import { LoadingModal } from '../loadingModal'
 import { chooseImage, openCamera } from '../imagePicker'
 import { Colors } from '../../utils/Colors';
 
 const defaultImage = "http://www.diaraltamer.com/Admin/Uploads/AR/201910131655599168.jpg";
 
 export function AddEmployeeForm() {
+    const [ isAdding, setIsAdding ] = useState(false);
     const [ isModalVisible, setModalVisible ] = useState(false);
     const [ imageUri, setImageUri ] = useState(defaultImage);
     const navigation = useNavigation();
 
     const { getValues, control, reset, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
 
-    const onSubmit = () => {
-        UploadPicAndAddEmp({
+    const onSubmit = async () => {
+        setIsAdding(true);
+
+        await UploadPicAndAddEmp({
             name: getValues('name'),
             email: getValues('email'),
             phone: getValues('phone'),
             desc: getValues('Description'),
             image: imageUri
-        });
+        })
+
         reset();
+        setIsAdding(false);
         navigation.goBack();
+
     }
 
     const choosePicture = async (OpenCam) => {
@@ -57,6 +64,7 @@ export function AddEmployeeForm() {
                     marginVertical: 13,
                 } }
             />
+            <LoadingModal Visible={ isAdding } />
 
             <ImagePickerModal
                 Visible={ isModalVisible }
@@ -113,8 +121,8 @@ export function AddEmployeeForm() {
                 rules={ {
                     required: (true, 'Description Is Required'),
                     maxLength: {
-                        value: 500,
-                        message: 'Too Long (Maximum 10)'
+                        value: 600,
+                        message: 'Too Long (Maximum 600)'
                     },
                     minLength: {
                         value: 10,
@@ -133,7 +141,7 @@ export function AddEmployeeForm() {
             />
 
 
-            <AddEmbButton onPress={ onSubmit } />
+            <AddEmbButton onPress={ handleSubmit(onSubmit) } />
         </ScrollView>
 
     );

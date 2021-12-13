@@ -23,7 +23,7 @@ export function HomeHeader({
                 <HeaderButton onPress={ onPressRefresh } icon={ 'refresh-circle' } />
             </View>
             <View style={ Styles.draweBbutton } >
-                <HeaderButton onPress={ onPressDrawer } icon={ 'menu' } />
+                <HeaderButton onPress={ onPressDrawer } icon={ "menu" } />
             </View>
         </View>
     )

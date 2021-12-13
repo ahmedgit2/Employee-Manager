@@ -10,7 +10,6 @@ export function ViewImageModal({
     img_uri,
     changePic = false }) {
 
-    console.log(img_uri)
     return (
 
         <Modal
